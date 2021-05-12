@@ -39,7 +39,7 @@ jobs:
       - name: Terraform Init Network Dev
         run: |
           cd 01-network/env/dev
-          terraform init "-backend=true" "-backend-config=backend.tfvars" ../..
+          terraform init -backend=true
         shell: bash
 
       - name: Terraform Plan Network Dev
