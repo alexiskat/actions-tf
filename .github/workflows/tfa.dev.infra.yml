@@ -1,6 +1,4 @@
-# This runs on any change inside the ir2 infra folder, on develop branch.
-# This will apply your proposed changes
-name: ir2.test.primary.infra.deployment
+name: tfa.dev.infra
 
 on:
   push:
@@ -11,7 +9,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  apply-tf:
+  tfa-dev-tf:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -34,10 +32,10 @@ jobs:
       
       - name: Terraform Init Network Dev
         run: | 
-          cd network/env/dev
+          cd 01-network/env/dev
           terraform init -backend=true -backend-config=backend.tfvars ../..
 
       - name: Terraform Plan Network Dev
         run: | 
-          cd network/env/dev
+          cd 01-network/env/dev
           terraform plan ../..
