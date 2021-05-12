@@ -6,11 +6,6 @@ resource "aws_subnet" "sub_2a_pub_1" {
   availability_zone = var.public_subnet_1_az
 }
 
-resource "aws_instance" "web" {
-  ami           = "data.aws_ami.ubuntu.id"
-  instance_type = "t3.microbaaa"
-}
-
 resource "aws_subnet" "sub_2b_pub_2" {
   vpc_id            = aws_vpc.eb_vpc.id
   cidr_block        = var.public_subnet_2_cidr
