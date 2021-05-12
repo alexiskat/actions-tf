@@ -31,9 +31,7 @@ jobs:
           terraform_version: 0.15.1
       
       - name: Terraform Init Network Dev
-        run: | 
-          cd 01-network/env/dev
-          terraform init -backend=true -backend-config=backend.tfvars ../..
+        run: cd 01-network/env/dev && terraform init -backend=true -backend-config=backend.tfvars ../..
 
       - name: Terraform Plan Network Dev
         run: | 
