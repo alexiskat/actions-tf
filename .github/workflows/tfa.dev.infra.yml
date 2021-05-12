@@ -22,7 +22,6 @@ jobs:
         id: fmt
         run: |
           terraform fmt -diff -check -recursive
-        continue-on-error: true
         shell: bash
 
       - name: Terraform Validate Network
