@@ -1,0 +1,69 @@
+name: tfa.dev.infra
+
+on:
+  push:
+    paths:
+      - "infra/02-data/**"
+      - ".github/workflows/**"
+    branches:
+      - '!master'
+  workflow_dispatch: {}
+
+jobs:
+  tfa-dev-tf:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_TFA_DEV_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_TFA_DEV_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Configure Terraform v0.15.3
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.15.3
+          terraform_wrapper: false
+      
+      - name: Check Terraform fmt
+        run: |
+          terraform fmt -diff -check -recursive
+        shell: bash
+        working-directory: infra/02-data
+      
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v1
+        with:
+          tflint_version: latest
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Run TFLint
+        run: |
+          tflint --version
+          tflint -f compact
+        working-directory: infra/02-data
+      
+      - name: Data Dev Terraform Init
+        run: |
+          terraform init -input=false -backend=true -backend-config="env/dev/backend.tfvars"
+        shell: bash
+        working-directory: infra/02-data
+      
+      - name: Data Terraform Validate
+        run: |
+          terraform validate
+        working-directory: infra/02-data
+        shell: bash
+
+      - name: Data Dev Terraform Plan
+        run: |
+          terraform plan -input=false -var-file="env/dev/terraform.tfvars"
+        shell: bash
+        working-directory: infra/02-data
