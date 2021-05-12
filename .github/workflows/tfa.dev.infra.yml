@@ -18,6 +18,11 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v2
 
+      - name: Terraform security scan
+        uses: triat/terraform-security-scan@v2.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -33,7 +38,7 @@ jobs:
       
       - name: Terraform Init Network Dev
         run: |
-          terraform init -backend=true -backend-config=env/dev/backend.tfvars
+          terraform init -backend=true -backend-config=env/dev/backend.tfvars -detailed-exitcode
         shell: bash
         working-directory: infra/01-network 
 
