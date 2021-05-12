@@ -29,6 +29,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.15.3
+          terraform_wrapper: true
       
       - name: Terraform Init Network Dev
         run: |
@@ -37,12 +38,12 @@ jobs:
         working-directory: infra/01-network 
 
       - name: Terraform Plan Network Dev
-        id: plan
+        id: tfplan
         run: | 
           terraform plan -var-file="env/dev/terraform.tfvars"
         shell: bash
         working-directory: infra/01-network 
 
-      - run: echo ${{ steps.plan.outputs.stderr }}
-      - run: echo ${{ steps.plan.outputs.exitcode }}
-      - run: echo ${{ steps.plan.outcome }}
+      - run: echo ${{ steps.tfplan.outputs.stderr }}
+      - run: echo ${{ steps.tfplan.outputs.exitcode }}
+      - run: echo ${{ steps.tfplan.outputs.stdout }}
