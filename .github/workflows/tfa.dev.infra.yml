@@ -38,7 +38,7 @@ jobs:
       
       - name: Terraform Init Network Dev
         run: |
-          terraform init -backend=true -backend-config=env/dev/backend.tfvars -detailed-exitcode
+          terraform init -backend=true -backend-config="env/dev/backend.tfvars" -detailed-exitcode
         shell: bash
         working-directory: infra/01-network 
 
