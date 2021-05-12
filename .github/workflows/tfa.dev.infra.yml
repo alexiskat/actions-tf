@@ -46,4 +46,4 @@ jobs:
 
       - run: echo ${{ steps.tfplan.outputs.stderr }}
       - run: echo ${{ steps.tfplan.outputs.exitcode }}
-      - run: echo ${{ steps.tfplan.outputs.stdout }}
+      - run: echo "tfplan: ${{ steps.tfplan.outputs.stdout }}""
