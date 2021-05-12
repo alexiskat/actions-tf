@@ -40,7 +40,8 @@ jobs:
       - name: Terraform Plan Network Dev
         id: tfplan
         run: |
-          terraform plan -var-file="env/dev/terraform.tfvars" -out terraform.plan
-          terraform show -json terraform.plan | tee terraform.json
+          terraform plan -var-file="env/dev/terraform.tfvars"
+          # terraform plan -var-file="env/dev/terraform.tfvars" -out terraform.plan
+          # terraform show -json terraform.plan | tee terraform.json
         shell: bash
         working-directory: infra/01-network
