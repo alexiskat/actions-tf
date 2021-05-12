@@ -1,0 +1,32 @@
+# This runs on any change inside the ir2 infra folder, on develop branch.
+# This will apply your proposed changes
+name: ir2.test.primary.infra.deployment
+
+on:
+  push:
+    paths:
+      - "ir2/platform/infra/**"
+      - ".github/workflows/**"
+    branches: [develop]
+  workflow_dispatch: {}
+
+jobs:
+  apply-tf:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ir2/platform/infra/
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_TFA_DEV_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_TFA_DEV_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.15.1
