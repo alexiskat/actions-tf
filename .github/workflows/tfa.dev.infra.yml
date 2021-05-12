@@ -30,11 +30,6 @@ jobs:
         with:
           terraform_version: 0.15.3
       
-      - name: Terraform Configuration
-        run: |
-          terraform -version
-        shell: bash
-      
       - name: Terraform Init Network Dev
         run: |
           terraform init -backend=true -backend-config=env/dev/backend.tfvars
