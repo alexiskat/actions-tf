@@ -44,11 +44,3 @@ jobs:
           terraform show -json terraform.plan | tee terraform.json
         shell: bash
         working-directory: infra/01-network
-
-      - run: |
-          echo ${{ steps.tfplan.outputs.stdout }}"
-        shell: bash
-        working-directory: infra/01-network      
-      - run: echo ${{ steps.tfplan.outputs.stderr }}
-      - run: echo ${{ steps.tfplan.outputs.exitcode }}
-     
