@@ -25,10 +25,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_TFA_DEV_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-      - name: Configure Terraform v0.15
+      - name: Configure Terraform v0.15.3
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.15.1
+          terraform_version: 0.15.3
+      
+      - name: Terraform Version
+        run: |
+          terraform -version
+        shell: bash
+      
       
       - name: Terraform Init Network Dev
         run: |
