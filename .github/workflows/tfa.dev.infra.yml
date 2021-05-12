@@ -21,7 +21,7 @@ jobs:
       - name: Check Terraform fmt
         id: fmt
         run: |
-          terraform fmt -check -recursive
+          terraform fmt -diff -check -recursive
         continue-on-error: true
         shell: bash
 
@@ -53,7 +53,7 @@ jobs:
         run: |
           terraform -detailed-exitcode init -input=false -backend=true -backend-config="env/dev/backend.tfvars"
         shell: bash
-        working-directory: infra/01-network 
+        working-directory: infra/01-network
 
       - name: Terraform Plan Network Dev
         id: tfplan
