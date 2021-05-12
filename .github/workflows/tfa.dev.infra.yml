@@ -30,11 +30,10 @@ jobs:
         with:
           terraform_version: 0.15.3
       
-      - name: Terraform Version
+      - name: Terraform Configuration
         run: |
           terraform -version
         shell: bash
-      
       
       - name: Terraform Init Network Dev
         run: |
@@ -42,7 +41,11 @@ jobs:
         shell: bash
 
       - name: Terraform Plan Network Dev
+        id: plan
         run: | 
-          cd 01-network/env/dev
           terraform plan
         shell: bash
+
+      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ steps.plan.outputs.stderr }}
+      - run: echo ${{ steps.plan.outputs.exitcode }}
