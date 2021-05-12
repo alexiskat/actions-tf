@@ -38,14 +38,14 @@ jobs:
       
       - name: Terraform Init Network Dev
         run: |
-          terraform -detailed-exitcode init -input=true -backend=true -backend-config="env/dev/backend.tfvars"
+          terraform -detailed-exitcode init -input=false -backend=true -backend-config="env/dev/backend.tfvars"
         shell: bash
         working-directory: infra/01-network 
 
       - name: Terraform Plan Network Dev
         id: tfplan
         run: |
-          terraform plan -var-file="env/dev/terraform.tfvars"
+          terraform plan -input=false -var-file="env/dev/terraform.tfvars"
           # terraform plan -var-file="env/dev/terraform.tfvars" -out terraform.plan
           # terraform show -json terraform.plan | tee terraform.json
         shell: bash
