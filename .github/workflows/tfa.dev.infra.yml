@@ -39,7 +39,7 @@ jobs:
       - name: Terraform Plan Network Dev
         id: plan
         run: | 
-          terraform plan
+          terraform plan -var-file="env/dev/terraform.tfvars"
         shell: bash
         working-directory: infra/01-network 
 
