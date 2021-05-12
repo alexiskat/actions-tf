@@ -16,7 +16,7 @@ variable "public_subnet_1_cidr" {
 }
 variable "public_subnet_1_az" {
   description = "The AZ range for Public Subnet 1"
-  default     = "eu-west-2a"
+  default     = "eu-xxx-2a"
 }
 variable "public_subnet_2_cidr" {
   description = "The CIDR range for Public Subnet 2"
